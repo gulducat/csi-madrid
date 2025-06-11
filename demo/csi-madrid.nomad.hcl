@@ -1,5 +1,6 @@
 variable "image" {
-  default = "csi-madrid:local" # or csi-madrid:local during development
+  # use "csi-madrid:local" during development (from `make image` in repo root)
+  default = "ghcr.io/gulducat/csi-madrid:main"
 }
 
 variable "task_driver" {
