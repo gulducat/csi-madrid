@@ -5,6 +5,7 @@ package main
 /* TODO:
  * optional env vars?
  * not log.Fatal
+ * godoc comments lol
  */
 
 import (

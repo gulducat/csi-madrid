@@ -11,6 +11,8 @@ import (
 /* TODO:
  * sink
  * panics
+ * capabilities?
+ * toplogy?
  */
 
 type NodeServer struct {

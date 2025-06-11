@@ -11,7 +11,11 @@ import (
 	"google.golang.org/protobuf/types/known/timestamppb"
 )
 
-const VolID = "my-cool-volume" // TODO
+/* TODO:
+ * unimplemented
+ * volume response Status
+ * topology
+ */
 
 type ControllerServer struct {
 	sink sink.Sink
@@ -48,28 +52,6 @@ func (c *ControllerServer) ControllerGetCapabilities(context.Context, *csi.Contr
 					Type: cap,
 				}}}
 	}
-	// resp := &csi.ControllerGetCapabilitiesResponse{
-	// 	Capabilities: []*csi.ControllerServiceCapability{
-	// 		{Type: &csi.ControllerServiceCapability_Rpc{Rpc: &csi.ControllerServiceCapability_RPC{
-	// 			Type: csi.ControllerServiceCapability_RPC_CREATE_DELETE_VOLUME,
-	// 		}}},
-	// 		{Type: &csi.ControllerServiceCapability_Rpc{Rpc: &csi.ControllerServiceCapability_RPC{
-	// 			Type: csi.ControllerServiceCapability_RPC_GET_VOLUME,
-	// 		}}},
-	// 		{Type: &csi.ControllerServiceCapability_Rpc{Rpc: &csi.ControllerServiceCapability_RPC{
-	// 			Type: csi.ControllerServiceCapability_RPC_LIST_VOLUMES,
-	// 		}}},
-	// 		{Type: &csi.ControllerServiceCapability_Rpc{Rpc: &csi.ControllerServiceCapability_RPC{
-	// 			Type: csi.ControllerServiceCapability_RPC_EXPAND_VOLUME,
-	// 		}}},
-	// 		{Type: &csi.ControllerServiceCapability_Rpc{Rpc: &csi.ControllerServiceCapability_RPC{
-	// 			Type: csi.ControllerServiceCapability_RPC_CREATE_DELETE_SNAPSHOT,
-	// 		}}},
-	// 		{Type: &csi.ControllerServiceCapability_Rpc{Rpc: &csi.ControllerServiceCapability_RPC{
-	// 			Type: csi.ControllerServiceCapability_RPC_LIST_SNAPSHOTS,
-	// 		}}},
-	// 	},
-	// }
 	return resp, nil
 }
 
