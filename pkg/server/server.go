@@ -11,7 +11,7 @@ import (
 
 func New(logger hclog.Logger, nodeID string, sink sink.Sink) *grpc.Server {
 	opts := []grpc.ServerOption{
-		grpc.UnaryInterceptor(loggingInterceptor(logger)),
+		grpc.UnaryInterceptor(loggingInterceptor(logger.Named("intercept"))),
 	}
 	serv := grpc.NewServer(opts...)
 	csi.RegisterIdentityServer(serv, &IdentityServer{

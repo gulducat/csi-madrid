@@ -2,6 +2,11 @@
 
 set -xeuo pipefail
 
+test -f policy.hcl || {
+  echo 'must run from within the demo dir'
+  exit 1
+}
+
 # create a policy for the csi job to allow it to write Nomad variables
 nomad acl policy apply -namespace=default -job=csi-madrid madrid policy.hcl
 
