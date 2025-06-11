@@ -1,6 +1,8 @@
 #!/usr/bin/env bash
 
-set -xeuo pipefail
+# TODO: handle job deployments getting stuck - no restarts/reschedules, or a timeout
+
+set -xe
 
 test -f policy.hcl || {
   echo 'must run from within the demo dir'
@@ -10,8 +12,13 @@ test -f policy.hcl || {
 # create a policy for the csi job to allow it to write Nomad variables
 nomad acl policy apply -namespace=default -job=csi-madrid madrid policy.hcl
 
-# run the csi job and wiat for it to become healthy
+# check out application logs on exit
+trap 'nomad logs -job csi-madrid ; nomad logs -stderr -job csi-madrid' EXIT
+
+# run the csi job
 nomad run csi-madrid.nomad.hcl
+
+# wait for plugin to become healthy
 while true; do
   nomad plugin status -json madrid \
     | jq '.ControllersHealthy + .NodesHealthy' \

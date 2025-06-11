@@ -4,7 +4,7 @@ variable "image" {
 }
 
 variable "task_driver" {
-  default = "docker" # could use podman
+  default = "docker" # could use podman with appropriate agent config
 }
 
 job "csi-madrid" {
@@ -19,9 +19,10 @@ job "csi-madrid" {
 
       driver = var.task_driver
       config {
-        image      = var.image
+        image = var.image
         args = [
           "-csi-endpoint=/csi/csi.sock", # TODO: ${CSI_ENDPOINT}?
+          "-log-level=debug",
           "-node-id=${node.unique.id}",
           "-sink-nomad-path=csi-madrid", # matches the Nomad var path in policy.hcl
           # or can save volume/snapshot state to a file, like
@@ -38,6 +39,13 @@ job "csi-madrid" {
       env {
         NOMAD_ADDR = "unix:/secrets/api.sock" # TODO: flag?
       }
+    }
+
+    # speed up any test failures
+    restart { attempts = 0 }
+    reschedule {
+      attempts  = 0
+      unlimited = false
     }
   }
 }

@@ -31,9 +31,8 @@ func main() {
 	}
 
 	logger := hclog.New(&hclog.LoggerOptions{
-		Name:        "csi-madrid",
-		Level:       hclog.LevelFromString(o.logLevel),
-		DisableTime: true, // csi logging already has a stamp
+		Name:  "csi-madrid",
+		Level: hclog.LevelFromString(o.logLevel),
 	})
 
 	logger.Info("setting up data store for volume and snapshot info")

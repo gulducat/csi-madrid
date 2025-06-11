@@ -13,5 +13,9 @@ nomad volume delete my-vol
 
 nomad stop csi-madrid
 
+# check out them logs again after it's all done
+nomad logs -job csi-madrid | tail -n40
+nomad logs -stderr -job csi-madrid | tail -n40
+
 nomad var purge csi-madrid/lock
 nomad acl policy delete madrid
