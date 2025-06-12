@@ -16,7 +16,7 @@ env:
   NOMAD_VERSION: latest
 
 jobs:
-  build:
+  build-test-publish:
     runs-on: ubuntu-latest
     permissions:
       contents: read
@@ -70,7 +70,7 @@ jobs:
       - name: Test against Nomad agent
         run: ./test.sh
         env:
-          NOMAD_VAR_image: ${{ steps.meta.outputs.tags }}
+          NOMAD_VAR_image: ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:${{ env.DOCKER_METADATA_OUTPUT_VERSION }}
 
       # If something fails, we'll want to know why
       - name: Output nomad log
